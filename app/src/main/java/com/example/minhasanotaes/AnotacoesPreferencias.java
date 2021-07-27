@@ -11,6 +11,7 @@ public class AnotacoesPreferencias {
     private final String CHAVE_NOME = "nome";
     private final String NOME_ARQUIVO = "anotacao.preferencia";
 
+
     public AnotacoesPreferencias(Context c) {
         this.context = c;
         preferences = context.getSharedPreferences(NOME_ARQUIVO, 0);
@@ -23,6 +24,6 @@ public class AnotacoesPreferencias {
     }
 
     public String recuperarAnotacao(){
-        return "";
+        return preferences.getString(CHAVE_NOME, "");
     }
 }

@@ -21,7 +21,6 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
-    private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
     private EditText editAnotacao;
     private AnotacoesPreferencias preferencias;
@@ -31,15 +30,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         editAnotacao = findViewById(R.id.editAnotacao);
-
         preferencias = new AnotacoesPreferencias(getApplicationContext());
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 //Validar se algo foi digitado
                 String textoRecuperado = editAnotacao.getText().toString();
                 if (textoRecuperado.equals("")) {
@@ -52,12 +50,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
+        //Recuperar a anotação
+        String anotacao = preferencias.recuperarAnotacao();
+        if (!anotacao.equals("")){
+            editAnotacao.setText(anotacao);
+        }
     }
 }
